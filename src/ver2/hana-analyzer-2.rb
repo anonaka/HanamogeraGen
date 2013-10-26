@@ -56,20 +56,23 @@ class HanaAnalyzer
   end
   
   def pretty_print
-    str = "tbl_begin_%d_a = [\n" % @level
-    puts str
-    @a_begin.to_a.each { |elm| print "  ";pp elm }
-    puts "]"
 
-    str = "tbl_mid_%d_a = [\n" % @level
-    puts str
-    @a_mid.to_a.each { |elm| print "  ";pp elm }
-    puts "]"
+    puts "#!/usr/bin/env ruby"
+    puts "# -*- coding: utf-8 -*-"
+    puts 
 
-    str = "tbl_end_%d_a = [\n" % @level
-    puts str
-    @a_end.to_a.each { |elm| print "  ";pp elm }
-    puts "]"
+    puts "$tbl_begin_%d_a = " % @level
+    pp @a_begin
+    
+    puts "#####"
+
+    puts "$tbl_mid_%d_a = " % @level
+    pp @a_mid
+
+    puts "#####"
+
+    puts "$tbl_end_%d_a = " % @level
+    pp @a_end
   end
 end
 
@@ -80,7 +83,7 @@ if  __FILE__ == $0
 
   ha = HanaAnalyzer.new(level)
   
-  inf = File.open('../data/100-hiragana-uni.csv',"r")
+  inf = File.open('../../data/100-hiragana-uni.csv',"r")
   
   while l = inf.gets
     data = l.chop().split(',')
