@@ -22,10 +22,17 @@ class Hanamogera2
   def gen_mid(tbl,phrase,len,limit)
     count = limit - phrase.length
     count.times { 
+      puts phrase
       key = phrase[(-len)..(-1)]      
-      puts key
       candidates = find_connection(tbl,key,len)
+      if candidates != []
+        phrase += pickup_random(candidates)[0][-1]
+      else
+        puts "no candidates"
+        phrase += "あ"
+      end
     }
+    puts phrase
   end
 end
 
@@ -35,8 +42,5 @@ if __FILE__ == $0
   ha = Hanamogera2.new
   hanamogera = ha.pickup_random($tbl_begin_3_a)[0]  
   puts hanamogera
-  key = hanamogera[1..len]
-  candidate = ha.find_connection($tbl_mid_3_a,key,len)
-  pp candidate
-
+  ha.gen_mid($tbl_mid_3_a,hanamogera,len,10)
 end
