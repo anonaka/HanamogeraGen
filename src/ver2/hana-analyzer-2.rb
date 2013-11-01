@@ -25,7 +25,7 @@ class HanaAnalyzer
     blk_count = len - @level
     i = 0
     while i < blk_count
-      str = ph[(i+1)..(i + @level - 1)]
+      str = ph[(i+1)..(i + @level)]
       @h_mid[str] += 1
       i += 1
     end
