@@ -9,6 +9,7 @@ class Hanamogera2
   def pickup_random(ar)
     return ar[rand(ar.length-1)]
   end
+
   def find_connection(tbl,key,len)
     result = []
     tbl.each { |elm|

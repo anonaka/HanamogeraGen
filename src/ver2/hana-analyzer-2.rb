@@ -19,11 +19,13 @@ class HanaAnalyzer
   end
 
   def analyze_connection(ph)
+    #文の中間文字列のパターンをカウントする。
+    #文頭と文末は除外する。
     len =  ph.length
-    blk_count = len - @level + 1
+    blk_count = len - @level
     i = 0
     while i < blk_count
-      str = ph[i..(i + @level - 1)]
+      str = ph[(i+1)..(i + @level - 1)]
       @h_mid[str] += 1
       i += 1
     end
