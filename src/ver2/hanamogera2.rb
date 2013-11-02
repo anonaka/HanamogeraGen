@@ -35,13 +35,37 @@ class Hanamogera2
     }
     puts phrase
   end
+
+  def gen_mid_recur(tbl,phrase,len,limit)
+    key = phrase[(-len)..(-1)]      
+    candidates = find_connection(tbl,key,len)
+    candidates.each { |c|
+      # 文の終わりに候補の1文字を追加
+      phrase += c[0][-1]
+      return phrase if phrase.length >= limit
+      result = gen_mid_recur(tbl,phrase,len,limit)
+      if result == nil
+        next
+      else 
+        return result
+      end
+    }
+    return nil
+  end
 end
 
 if __FILE__ == $0
   level = 3
   len = level-1
   ha = Hanamogera2.new
-  hanamogera = ha.pickup_random($tbl_begin_3_a)[0]  
-  puts hanamogera
-  ha.gen_mid($tbl_mid_3_a,hanamogera,len,10)
+  limit = 5
+  result = nil
+  while result == nil
+    hanamogera = ha.pickup_random($tbl_begin_3_a)[0]  
+    result = ha.gen_mid_recur($tbl_mid_3_a,hanamogera,len,limit)
+    if result == nil
+      #puts "failed"
+    end
+  end
+  puts result
 end
